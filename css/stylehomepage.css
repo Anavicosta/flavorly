@@ -1,0 +1,271 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #6a2e0c;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    padding-top: 60px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #eb7e25;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropbtn {
+    padding-left: 1cm;
+    font-family: 'HK Grotesk', sans-serif;
+    font-size: 16.2px;
+    text-transform: uppercase;
+    background: none;
+    font-weight: bold;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    opacity: 70%;
+    position: relative;
+    z-index: 1000;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #d06d21;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    top: 100%;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+    opacity: 70%;
+}
+
+.dropdown-content a:hover {
+    background-color: #be6e4b;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.search-bar {
+    margin-left: 1.0cm;
+    position: relative;
+}
+
+.search-bar input {
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    background-color: #ffaa71;
+}
+
+.search-bar ::placeholder {
+    color: rgb(255, 255, 255);
+    opacity: 70%;
+}
+
+.search-bar input:hover {
+    background-color: #ff964a;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    opacity: 70%;
+}
+
+.navbar-center {
+    display: flex;
+    align-items: center;
+    justify-content: justify;
+    flex-grow: 1;
+}
+
+.site-logo {
+    width: 40px;
+    margin-left: 345px;
+}
+
+.site-title {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 20.5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: justify;
+    padding-left: 15px;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.profile-icon {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.profile-link {
+    font-family: 'HK Grotesk', sans-serif;
+    font-size: 16.2px;
+    text-transform: uppercase;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    opacity: 70%;
+    margin-right: 20px;
+}
+
+.profile-link:hover {
+    color: #ccc;
+}
+
+.content {
+    margin: 1cm 2cm 0;
+}
+
+.main-title {
+    font-size: 26px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 0.2cm;
+}
+
+.title-underline {
+    border: none;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 5px;
+    width: 10%;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5cm;
+    margin-top: 1cm;
+}
+
+.card {
+    background-color: #fb7537a2;
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 15px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+}
+
+.card-icon {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.card-title {
+    font-size: 18.2px;
+    font-weight: bold;
+    text-transform: uppercase;
+    justify-content: left;
+    margin-left: 10px;
+}
+
+.progress {
+    font-size: 12.5px;
+    margin-left: auto;
+    opacity: 50%;
+}
+
+.card-line {
+    border: none;
+    height: 2px;
+    background-color: #fff;
+    margin: 0.5cm 0;
+    border-radius: 5px;
+}
+
+.card-content li {
+    font-family: 'Noto Sans';
+    list-style: none;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: normal;
+    opacity: 50%;
+}
+
+.start-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffffff;
+    color: #3a1c03;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.start-button:hover {
+    background-color: #c7c7c7;
+}
+
+body::-webkit-scrollbar {
+    width: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #bcbdbc;
+    border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background-color: #275c2e;
+}
+
+.search-bar input {
+    padding: 8px 12px;
+    outline: none;
+    caret-color: #ffffff;
+    transition: border-color 0.3s ease;
+}
