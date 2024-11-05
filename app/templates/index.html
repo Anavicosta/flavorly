@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name ="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flavorly</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #652e0d;
+            color: #fff;
+            padding: 0;
+            margin: 0;
+            padding-top: 60px;
+        }
+
+        .navbar {
+            margin-bottom: 0;
+            padding-bottom: 0; /* Remove qualquer preenchimento inferior */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #eb7e25;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropbtn {
+            padding-left: 1cm;
+            font-family: 'HK Grotesk', sans-serif;
+            font-size: 16.2px;
+            text-transform: uppercase;
+            background: none;
+            font-weight: bold;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            opacity: 70%;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #d06d21;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            top: 100%;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: block;
+            opacity: 70%;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #be6e4b;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .search-bar {
+            margin-left: 1.0cm;
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            background-color: #ffaa71;
+        }
+
+        .search-bar ::placeholder {
+            color: rgb(255, 255, 255);
+            opacity: 70%;
+        }
+
+        .search-bar input:hover {
+            background-color: #ff964a;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            opacity: 70%;
+        }
+
+        .navbar-center {
+            display: flex;
+            align-items: center;
+            justify-content: justify;
+            flex-grow: 1;
+        }
+
+        .site-logo {
+            width: 40px;
+            margin-left: 345px;
+        }
+
+        .site-title {
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 20.5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: justify;
+            padding-left: 15px;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-icon {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .profile-link {
+            font-family: 'HK Grotesk', sans-serif;
+            font-size: 16.2px;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none; /* Remover sublinhado */
+            font-weight: bold;
+            opacity: 70%;
+            margin-right: 20px;
+            background: none; /* Remove o fundo padrão do botão */
+            border: none; /* Remove a borda do botão */
+            cursor: pointer; /* Muda o cursor para um ponteiro */
+            padding: 0; /* Remove o preenchimento padrão */
+        }
+
+        .profile-link:hover {
+            color: #ccc; /* Cor ao passar o mouse */
+        }
+
+
+        .content {
+            margin: 1cm 2cm 0;
+        }
+
+        .main-title {
+            font-size: 26px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 0.2cm;
+        }
+
+        .title-underline {
+            border: none;
+            height: 4px;
+            background-color: #fff;
+            border-radius: 5px;
+            width: 10%;
+        }
+
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5cm;
+            margin-top: 1cm;
+        }
+
+        .card {
+            background-color: #fb7537a2;
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 15px;
+        }   
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-icon {
+            width: 30px;
+            margin-right: 10px;
+        }   
+
+        .card-title {
+            font-size: 18.2px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-left: 10px;
+            flex-grow: 1;  /* Para ocupar o espaço disponível */
+        }
+
+        .stars {
+            display: flex;
+            gap: 2px;
+            margin-left: 10px; /* Espaçamento à esquerda das estrelas */
+            align-items: center; /* Alinha as estrelas verticalmente */
+        }
+
+        .star {
+            font-size: 18px; /* Tamanho das estrelas */
+        }
+
+        .card-line {
+            border: none;
+            height: 2px;
+            background-color: #fff;
+            margin: 0.5cm 0;
+            border-radius: 5px;
+        }
+
+        .card-content li {
+            font-family: 'Noto Sans';
+            list-style: none;
+            font-size: 12.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: normal;
+            opacity: 50%;
+        }
+
+        .start-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ffffff;
+            color: #3a1c03;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .start-button:hover {
+            background-color: #c7c7c7;
+        }
+
+        body::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: #bcbdbc;
+            border-radius: 5px;
+        }   
+
+        body::-webkit-scrollbar-thumb:hover {
+            background-color: #275c2e;
+        }
+
+        .search-bar input {
+            padding: 8px 12px;
+            outline: none;
+            caret-color: #ffffff;
+            transition: border-color 0.3s ease;
+        }
+
+ 
+
+/* Estilo da barra de categorias */
+.categoria-bar {
+    background-color: #eb7e25; /* Cor de fundo laranja */
+    padding: 10px 0; /* Espaçamento vertical para a barra */
+    text-align: center; /* Centraliza os itens horizontalmente */
+    margin-top: 0; /* Remove o espaço acima */
+}
+
+/* Estilo dos botões de categoria */
+.categoria-button {
+    margin: 0 10px; /* Espaçamento entre os botões */
+    padding: 10px 20px; /* Espaçamento interno dos botões */
+    background-color: transparent; /* Fundo transparente para os botões */
+    color: #ccc; /* Cor do texto cinza */
+    border: none; /* Remove borda dos botões */
+    cursor: pointer; /* Altera o cursor ao passar sobre o botão */
+    text-decoration: none; /* Remove sublinhado do texto */
+    font-weight: normal; /* Mantém o texto sem negrito */
+}
+
+/* Efeito ao passar o mouse sobre os botões */
+.categoria-button:hover {
+    color: #fff; /* Altera a cor do texto ao passar o mouse */
+}
+
+    </style>
+    <script>
+        function toggleCategoriaBar() {
+            const categoriaBar = document.getElementById('categoriaBar');
+            if (categoriaBar.style.display === 'none' || categoriaBar.style.display === '') {
+                categoriaBar.style.display = 'block'; // Mostra a barra de categorias
+            } else {
+                categoriaBar.style.display = 'none'; // Oculta a barra de categorias
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <div class="dropdown">
+                <button class="dropbtn" onclick="toggleCategoriaBar()">CATEGORIAS ▼</button>
+            </div>       
+        </div>
+        <div class="navbar-center">
+            <img src="../../media/icone.png" alt="Logo" class="site-logo">
+            <span class="site-title">Flavorly</span>
+        </div>
+        <div class="navbar-right">
+            <img src="../../media/perfil.png" alt="Perfil" class="profile-icon">
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="profile-link">{{ user.first_name }}</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="profile-link">Login</a>
+            {% endif %}
+            {% if request.user.is_superuser %}
+                <a href="{% url 'admin:index' %}" class="profile-link">ADMIN</a>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="categoria-bar" id="categoriaBar" style="display: none;">
+        <a href="{% url 'index' %}" class="categoria-button">Todas</a> 
+        {% for categoria in categorias %}
+            <a href="?categoria={{ categoria }}" class="categoria-button">
+                {{ categoria }}
+            </a>
+        {% endfor %}
+    </div>
+    <div class="content">
+        <h1 class="main-title">RECEITAS</h1>
+        <hr class="title-underline">
+        <div class="card-container">
+            {% if receitas %}
+                {% for receita in receitas %}
+                <div class="card">
+                    <div class="card-header">
+                        <img src="../../media/card_icon.png" alt="{{ receita.nome }}" class="card-icon">
+                        <span class="card-title">{{ receita.nome }}</span>
+                        <div class="stars"> 
+                            {% if receita.media_avaliacao %}
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= receita.media_avaliacao %}
+                                        <span class="star">&#9733;</span>  <!-- Estrela preenchida -->
+                                    {% else %}
+                                        <span class="star">&#9734;</span>  <!-- Estrela vazia -->
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <span>Sem avaliações</span>
+                            {% endif %}
+                        </div>                                                                                  
+                    </div>
+                    <hr class="card-line">
+                    <ul class="card-content">
+                        <li>{{ receita.descricao|default:"Não disponível." }}</li>
+                    </ul>
+                    <button class="start-button" onclick="window.location.href='{% url 'receita_detail' receita.pk %}'">VER RECEITA</button>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>Nenhuma receita disponível.</p>
+            {% endif %}
+        </div>
+    </div>        
+</body>
+</html>

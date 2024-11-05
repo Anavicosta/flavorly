@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ receita.nome }} - Flavorly</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #652e0d; /* Cor de fundo */
+            color: #fff;                /* Cor do texto */
+            padding: 0;
+            margin: 0;
+            padding-top: 60px;         /* Espaço para a barra de navegação */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #eb7e25; /* Cor da barra de navegação */
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .navbar-left, .navbar-center, .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropbtn {
+            padding-left: 1cm;
+            font-family: 'HK Grotesk', sans-serif;
+            font-size: 16.2px;
+            text-transform: uppercase;
+            background: none;
+            font-weight: bold;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            opacity: 70%;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #d06d21;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            top: 100%;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: block;
+            opacity: 70%;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #be6e4b;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .search-bar {
+            margin-left: 1.0cm;
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            background-color: #ffaa71;
+        }
+
+        .search-bar::placeholder {
+            color: rgb(255, 255, 255);
+            opacity: 70%;
+        }
+
+        .search-bar input:hover {
+            background-color: #ff964a;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            opacity: 70%;
+        }
+
+        .site-logo {
+            width: 40px;
+            margin-left: 345px;
+        }
+
+        .site-title {
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 20.5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: justify;
+            padding-left: 15px;
+        }
+
+        .profile-icon {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .profile-link {
+            font-family: 'HK Grotesk', sans-serif;
+            font-size: 16.2px;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            opacity: 70%;
+            margin-right: 20px;
+        }
+
+        .profile-link:hover {
+            color: #ccc;
+        }
+
+        .content {
+            margin: 1cm 2cm 0;
+            background-color: rgba(255, 255, 255, 0.1); /* Fundo semi-transparente */
+            padding: 20px;
+            border-radius: 10px; /* Cantos arredondados */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-title {
+            font-size: 26px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 0.2cm;
+            text-align: center; /* Centraliza o título */
+        }
+
+        .title-underline {
+            border: none;
+            height: 4px;
+            background-color: #fff;
+            border-radius: 5px;
+            width: 10%;
+            margin: 0 auto 20px auto; /* Centraliza a linha */
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #eb7e25; /* Linha abaixo do título */
+            padding-bottom: 5px; /* Espaço abaixo do título */
+        }
+
+        ul {
+            list-style: none;           /* Remove os marcadores da lista */
+            margin-bottom: 20px;       /* Espaço inferior para a lista */
+            padding-left: 20px;        /* Espaço à esquerda da lista */
+            background-color: rgba(255, 255, 255, 0.05); /* Fundo suave */
+            border-radius: 5px;        /* Bordas arredondadas */
+            padding: 10px;             /* Espaçamento interno */
+        }
+
+        li {
+            font-size: 16px;
+            margin-bottom: 5px;        /* Espaço entre os itens da lista */
+            padding: 5px;              /* Espaço interno nos itens */
+            border-bottom: 1px solid #fff; /* Linha entre os itens */
+        }
+
+        li:last-child {
+            border-bottom: none;       /* Remove a linha do último item */
+        }
+
+        .start-button {
+            background-color: #ffffff;
+            color: #3a1c03;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 20px;
+            display: inline-block;      /* Para permitir margem acima */
+            transition: background-color 0.3s; /* Transição suave */
+        }
+
+        .start-button:hover {
+            background-color: #c7c7c7;
+        }
+
+        body::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: #bcbdbc;
+            border-radius: 5px;
+        }   
+
+        body::-webkit-scrollbar-thumb:hover {
+            background-color: #275c2e;
+        }
+
+        .comment-section {
+            margin-top: 30px; /* Espaçamento acima da seção de comentários */
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .comment {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #fff; /* Linha entre os comentários */
+        }
+
+        .comment:last-child {
+            border-bottom: none; /* Remove a linha do último comentário */
+        }
+
+        .rating {
+            margin: 20px 0;
+        }
+
+        .star-rating {
+    display: flex;
+    direction: row; /* Alinha as estrelas em uma linha */
+    justify-content: center; /* Centraliza as estrelas */
+}
+
+.star-rating input[type="radio"] {
+    display: none; /* Esconde os botões de opção */
+}
+
+.star {
+    font-size: 2em; /* Tamanho da estrela */
+    color: lightgray; /* Cor padrão das estrelas */
+    cursor: pointer; /* Altera o cursor para pointer ao passar sobre a estrela */
+}
+
+.star.selected {
+    color: gold; /* Cor das estrelas selecionadas */
+}
+
+
+        .comment-form {
+            margin-top: 20px;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            resize: none;
+            background-color: #ffaa71; /* Cor de fundo do textarea */
+            color: #fff;
+        }
+
+        .comment-form button {
+            background-color: #ffffff;
+            color: #3a1c03;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .comment-form button:hover {
+            background-color: #c7c7c7;
+        }
+
+        
+
+        
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <div></div>
+            <!-- DIV PARA MANTER FORMATAÇÃO DA NAV -->
+        </div>
+        <div class="navbar-center">
+            <img src="../../media/icone.png" alt="Logo" class="site-logo">
+            <span class="site-title">Flavorly</span>
+        </div>
+        <div class="navbar-right">
+            <img src="../../media/perfil.png" alt="Perfil" class="profile-icon">
+            <a href="{% url 'login' %}" class="profile-link">NOME</a>
+        </div>
+    </nav>
+    <div class="content">
+        <h1 class="main-title">{{ receita.nome }}</h1>
+        <hr class="title-underline">
+        <h2>Ingredientes</h2>
+        <ul>
+            {% for ingrediente in receita.ingredientes.all %}
+                <li>{{ ingrediente.quantidade }} {{ ingrediente.nome }}</li>
+            {% endfor %}
+        </ul>
+        <h2>Modo de Preparo</h2>
+        <p>{{ receita.modo_preparo }}</p>
+        <button class="start-button" onclick="window.history.back();">Voltar</button>
+
+        <div class="rating-section">
+            <h2>Avalie esta receita:</h2>
+            <div class="star-rating">
+                <input type="radio" id="star1" name="rating" value="1" />
+                <label for="star1" class="star">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="2" />
+                <label for="star2" class="star">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3" />
+                <label for="star3" class="star">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="4" />
+                <label for="star4" class="star">&#9733;</label>
+                <input type="radio" id="star5" name="rating" value="5" />
+                <label for="star5" class="star">&#9733;</label>
+            </div>                
+        </div>        
+        <div class="comment-section">
+            <h2>Comentários</h2>
+            <div id="comments-list">
+                {% for comentario in comentarios %}
+                    <div class="comment">
+                        <strong>{{ comentario.usuario.username }}:</strong>
+                        <p>{{ comentario.texto }}</p>
+                    </div>
+                {% empty %}
+                    <p>Nenhum comentário ainda.</p>
+                {% endfor %}
+            </div>
+        
+            <div class="comment-form">
+                <textarea id="comment-text" placeholder="Deixe seu comentário..." rows="3"></textarea>
+                <button id="submit-comment">Enviar Comentário</button>
+            </div>
+        </div>
+    </div>
+        <script>
+            document.getElementById('submit-comment').addEventListener('click', () => {
+                const commentText = document.getElementById('comment-text').value.trim();
+                const receitaId = "{{ receita.pk }}";
+
+                if (commentText) {
+                    fetch(`/receita/${receitaId}/adicionar-comentario/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'Content-Type': 'application/json'
+                        },
+                            
+                        body: JSON.stringify({ texto: commentText })
+                    })
+
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        }else {
+                            const commentsList = document.getElementById('comments-list');
+                            const newComment = document.createElement('div');
+                            newComment.classList.add('comment');
+                            newComment.innerHTML = `<strong>${data.usuario}:</strong><p>${data.texto}</p>`;
+                            commentsList.appendChild(newComment);
+                            document.getElementById('comment-text').value = ''; 
+                        }
+                    })
+
+                    .catch(error => {
+                        alert('Não foi possível adicionar o comentário. Tente novamente.');
+                    });
+                } else {
+                    alert('Por favor, escreva um comentário.');
+                }
+            });
+
+            const stars = document.querySelectorAll('.star-rating input[type="radio"]');
+
+            stars.forEach(star => {
+                star.addEventListener('change', function() {
+                    const rating = parseInt(this.value); 
+
+                    stars.forEach(s => {
+                        const label = document.querySelector(`label[for="${s.id}"]`);
+                        if (parseInt(s.value) <= rating) {
+                            label.classList.add('selected'); 
+                        } else {
+                            label.classList.remove('selected'); 
+                        }
+                    });
+
+                    const receitaId = "{{ receita.pk }}"; 
+                    fetch(`/receita/${receitaId}/adicionar-avaliacao/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ nota: rating }) 
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                        }
+                    })
+                    .catch(error => {
+                        alert('Não foi possível adicionar a avaliação. Tente novamente.');
+                    });
+                });
+            });
+        </script>
+</body>
+</html>

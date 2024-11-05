@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login e Cadastro</title>
+    <style>
+        /* Estilização básica */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff3e0; /* Fundo laranja claro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0; /* Remove margens padrão do body */
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 100%; /* Garante responsividade */
+            margin: 0 15px; /* Margens laterais para não encostar nas bordas */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff6f00; /* Laranja escuro */
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #ff6f00; /* Laranja escuro */
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6f00; /* Laranja escuro */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold; /* Texto em negrito */
+        }
+
+        button:hover {
+            background-color: #e65100; /* Laranja mais escuro no hover */
+        }
+
+        .toggle-section {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .toggle-section a {
+            color: #ff6f00; /* Laranja escuro */
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error-message {
+            color: red; /* Estilo para mensagens de erro */
+            margin-bottom: 15px;
+            text-align: center; /* Centraliza mensagens de erro */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div id="login-section">
+            <h2>Login</h2>
+            {% if messages %}
+                <div class="error-message">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form method="POST" action="">
+                {% csrf_token %}
+                <label for="username">Nome de usuário:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit" name="login">Entrar</button>
+            </form>
+            <div class="toggle-section">
+                <p>Não tem uma conta? <a id="show-register" onclick="toggleForms()">Cadastre-se</a></p>
+            </div>
+        </div>
+
+        <div id="register-section" class="hidden">
+            <h2>Registro</h2>
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Nome de usuário" required><br>
+                <input type="password" name="password" placeholder="Senha" required><br>
+                <input type="text" name="first_name" placeholder="Primeiro nome"><br>
+                <input type="text" name="last_name" placeholder="Último nome"><br>
+                <input type="email" name="email" placeholder="Email"><br>
+                <button type="submit" name="register">Registrar</button>
+            </form>
+            <div class="toggle-section">
+                <p>Já tem uma conta? <a id="show-login" onclick="toggleForms()">Entrar</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            const loginSection = document.getElementById('login-section');
+            const registerSection = document.getElementById('register-section');
+
+            loginSection.classList.toggle('hidden');
+            registerSection.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
