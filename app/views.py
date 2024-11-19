@@ -8,10 +8,11 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages  
 
 def filtrar_categorias(request):
     receitas = Receita.objects.all()
-    categorias = Receita.objects.values_list('categoria', flat=True).distinct()  # Obtém categorias únicas
+    categorias = Receita.objects.values_list('categoria', flat=True).distinct()  
 
     context = {
         'receitas': receitas,
@@ -29,7 +30,6 @@ def adicionar_comentario(request, pk):
             if not comentario_texto:
                 return JsonResponse({'error': 'Texto não pode estar vazio.'}, status=400)
 
-            # Substituindo 'usuario' por 'user'
             novo_comentario = Comentario(receita_id=pk, texto=comentario_texto, usuario=request.user)
             novo_comentario.save()
 
@@ -92,7 +92,7 @@ class IndexView(View):
             'receitas': receitas,
             'categorias': categorias,
             'categoria_selecionada': categoria_selecionada,
-            'user': request.user,  # Inclui o usuário no contexto
+            'user': request.user,  
         })
 
 

@@ -14,10 +14,10 @@ class Receita(models.Model):
         return self.nome
 
     def get_avaliacoes(self):
-        return self.avaliacoes.all()  # Corrigido para usar 'avaliacoes'
+        return self.avaliacoes.all() 
 
     def media_avaliacoes(self):
-        avaliacoes = self.avaliacoes.all()  # Corrigido para usar 'avaliacoes'
+        avaliacoes = self.avaliacoes.all()  
         if avaliacoes.exists():
             return sum(av.nota for av in avaliacoes) / avaliacoes.count()
         return 0
@@ -33,7 +33,7 @@ class Ingrediente(models.Model):
 class Comentario(models.Model):
     receita = models.ForeignKey('Receita', on_delete=models.CASCADE)
     texto = models.TextField()
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)  # A coluna que causa o erro
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)  
     data_criacao = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -43,9 +43,9 @@ class Comentario(models.Model):
 class Avaliacao(models.Model):
     receita = models.ForeignKey(Receita, on_delete=models.CASCADE, related_name='avaliacoes')
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    nota = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])  # Adicionando validadores para nota
+    nota = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])  
 
     class Meta:
         verbose_name = 'Avaliação'
         verbose_name_plural = 'Avaliações'
-        unique_together = ('receita', 'usuario')  # Garante que um usuário não possa avaliar a mesma receita mais de uma vez
+        unique_together = ('receita', 'usuario')  
